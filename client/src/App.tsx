@@ -37,7 +37,7 @@ function App() {
         <nav id="nav">
           <ul>
             <li className="current">
-              <a href="index.html">Home 2</a>
+              <a href="index.html">Home</a>
             </li>
             <li>
               <a href="#">Dropdown</a>
