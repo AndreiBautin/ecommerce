@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { MantineLogo } from "@mantine/ds";
+import logo from "../assets/images/logo.png";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -16,6 +17,10 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     height: "100%",
+  },
+
+  logo: {
+    height: "95%",
   },
 
   links: {
@@ -92,7 +97,7 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
   return (
     <Header height={60} mb={120}>
       <Container className={classes.header}>
-        <MantineLogo size={28} />
+        <img className={classes.logo} src={logo} />
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
