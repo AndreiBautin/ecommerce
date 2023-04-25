@@ -82,6 +82,7 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
+        window.location.href = link.link;
       }}
     >
       {link.label}

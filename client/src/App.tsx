@@ -25,8 +25,9 @@ function App() {
   const { data, mutate } = useSWR<Todo[]>("api/todos", fetcher);
 
   const links = [
-    { link: "Home", label: "Home" },
-    { link: "About", label: "About" },
+    { link: "#home", label: "Home" },
+    { link: "#about", label: "About" },
+    { link: "#shop", label: "Shop" },
   ];
 
   async function markTodoAdDone(id: number) {
@@ -52,22 +53,28 @@ function App() {
           },
         })}
       >
-        <HeroContentLeft />
-        <Feature />
-        <Grid px={100}>
-          <Grid.Col md={4} lg={3}>
-            <FeaturesCard />
-          </Grid.Col>
-          <Grid.Col md={4} lg={3}>
-            <FeaturesCard />
-          </Grid.Col>
-          <Grid.Col md={4} lg={3}>
-            <FeaturesCard />
-          </Grid.Col>
-          <Grid.Col md={4} lg={3}>
-            <FeaturesCard />
-          </Grid.Col>
-        </Grid>
+        <section id="home">
+          <HeroContentLeft />
+        </section>
+        <section id="about">
+          <Feature />
+        </section>
+        <section id="shop">
+          <Grid px={100}>
+            <Grid.Col md={4} lg={3}>
+              <FeaturesCard />
+            </Grid.Col>
+            <Grid.Col md={4} lg={3}>
+              <FeaturesCard />
+            </Grid.Col>
+            <Grid.Col md={4} lg={3}>
+              <FeaturesCard />
+            </Grid.Col>
+            <Grid.Col md={4} lg={3}>
+              <FeaturesCard />
+            </Grid.Col>
+          </Grid>
+        </section>
         <FooterSimple links={links} />
       </AppShell>
     </div>
