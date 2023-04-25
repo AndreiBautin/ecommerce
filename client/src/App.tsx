@@ -26,8 +26,8 @@ function App() {
 
   const links = [
     { link: "#home", label: "Home" },
-    { link: "#about", label: "About" },
     { link: "#shop", label: "Shop" },
+    { link: "#about", label: "About" },
   ];
 
   async function markTodoAdDone(id: number) {

@@ -1,5 +1,5 @@
 import { createStyles, Container, Group, Anchor, rem } from "@mantine/core";
-import { MantineLogo } from "@mantine/ds";
+import logo from "../assets/images/logo.png";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -26,6 +26,10 @@ const useStyles = createStyles((theme) => ({
       marginTop: theme.spacing.md,
     },
   },
+
+  logo: {
+    width: "10%",
+  },
 }));
 
 interface FooterSimpleProps {
@@ -39,7 +43,10 @@ export function FooterSimple({ links }: FooterSimpleProps) {
       color="dimmed"
       key={link.label}
       href={link.link}
-      onClick={(event) => event.preventDefault()}
+      onClick={(event) => {
+        event.preventDefault();
+        window.location.href = link.link;
+      }}
       size="sm"
     >
       {link.label}
@@ -49,7 +56,7 @@ export function FooterSimple({ links }: FooterSimpleProps) {
   return (
     <div className={classes.footer}>
       <Container className={classes.inner}>
-        <MantineLogo size={28} />
+        <img className={classes.logo} src={logo} />
         <Group className={classes.links}>{items}</Group>
       </Container>
     </div>
