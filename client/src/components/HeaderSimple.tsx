@@ -8,7 +8,6 @@ import {
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { MantineLogo } from "@mantine/ds";
 import logo from "../assets/images/logo.png";
 
 const useStyles = createStyles((theme) => ({

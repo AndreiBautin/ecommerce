@@ -12,14 +12,13 @@ import {
   IconHome2,
   IconGauge,
   IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconCalendarStats,
+  IconShoppingCart,
   IconUser,
   IconSettings,
   IconLogout,
   IconSwitchHorizontal,
 } from "@tabler/icons-react";
-import { MantineLogo } from "@mantine/ds";
+import logo from "../assets/images/logo.png";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -52,6 +51,10 @@ const useStyles = createStyles((theme) => ({
         .color,
     },
   },
+
+  logo: {
+    width: "95%",
+  },
 }));
 
 interface NavbarLinkProps {
@@ -77,16 +80,16 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 
 const mockdata = [
   { icon: IconHome2, label: "Home" },
-  { icon: IconGauge, label: "Dashboard" },
-  { icon: IconDeviceDesktopAnalytics, label: "Analytics" },
-  { icon: IconCalendarStats, label: "Releases" },
+  { icon: IconDeviceDesktopAnalytics, label: "About" },
+  { icon: IconGauge, label: "Shop" },
+  { icon: IconShoppingCart, label: "Cart" },
   { icon: IconUser, label: "Account" },
-  { icon: IconFingerprint, label: "Security" },
   { icon: IconSettings, label: "Settings" },
 ];
 
 export function NavbarMinimal() {
   const [active, setActive] = useState(2);
+  const { classes, cx } = useStyles();
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
@@ -100,7 +103,7 @@ export function NavbarMinimal() {
   return (
     <Navbar height={750} width={{ base: 80 }} p="md">
       <Center>
-        <MantineLogo type="mark" size={30} />
+        <img className={classes.logo} src={logo} />
       </Center>
       <Navbar.Section grow mt={50}>
         <Stack justify="center" spacing={0}>
@@ -109,7 +112,6 @@ export function NavbarMinimal() {
       </Navbar.Section>
       <Navbar.Section>
         <Stack justify="center" spacing={0}>
-          <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
           <NavbarLink icon={IconLogout} label="Logout" />
         </Stack>
       </Navbar.Section>
