@@ -14,20 +14,17 @@ import { IconGauge, IconUser, IconCookie } from "@tabler/icons-react";
 const mockdata = [
   {
     title: "Extreme performance",
-    description:
-      "This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
+    description: "Powered by a Golang/PostgreSQL backend and a React frontend",
     icon: IconGauge,
   },
   {
-    title: "Privacy focused",
-    description:
-      "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma",
+    title: "Security focused",
+    description: "Integrated with Google Authentication",
     icon: IconUser,
   },
   {
-    title: "No third parties",
-    description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
+    title: "No junk",
+    description: "Just clean, minimalist code",
     icon: IconCookie,
   },
 ];
@@ -63,17 +60,6 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[1]
     }`,
   },
-
-  cardTitle: {
-    "&::after": {
-      content: '""',
-      display: "block",
-      backgroundColor: theme.fn.primaryColor(),
-      width: rem(45),
-      height: rem(2),
-      marginTop: theme.spacing.sm,
-    },
-  },
 }));
 
 export function Feature() {
@@ -87,7 +73,7 @@ export function Feature() {
       padding="xl"
     >
       <feature.icon size={rem(50)} stroke={2} color={theme.fn.primaryColor()} />
-      <Text fz="lg" fw={500} className={classes.cardTitle} mt="md">
+      <Text fz="lg" fw={500} mt="md">
         {feature.title}
       </Text>
       <Text fz="sm" c="dimmed" mt="sm">
@@ -100,17 +86,17 @@ export function Feature() {
     <Container size="lg" py="xl">
       <Group position="center">
         <Badge variant="filled" size="lg">
-          Best company ever
+          Like the site?
         </Badge>
       </Group>
 
       <Title order={2} className={classes.title} ta="center" mt="sm">
-        Integrate effortlessly with any technology stack
+        Lets make something even better!
       </Title>
 
       <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        Every once in a while, you’ll see a Golbat that’s missing some fangs.
-        This happens when hunger drives it to try biting a Steel-type Pokémon.
+        I make professional full-stack software solutions. Let me tell you a bit
+        more about this application.
       </Text>
 
       <SimpleGrid
