@@ -80,7 +80,7 @@ export function HeroContentLeft() {
         zIndex={0}
       />
       <Container className={classes.container}>
-        <Title className={classes.title}>Office Supplies Co.</Title>
+        <Title className={classes.title}>Laptop Shop</Title>
         <Text className={classes.description} size="xl" mt="xl">
           Build for demo purposes by Andrei Bautin
         </Text>

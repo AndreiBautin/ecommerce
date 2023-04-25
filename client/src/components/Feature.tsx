@@ -9,12 +9,12 @@ import {
   Container,
   rem,
 } from "@mantine/core";
-import { IconGauge, IconUser, IconCookie } from "@tabler/icons-react";
+import { IconGauge, IconUser, IconTrash } from "@tabler/icons-react";
 
 const mockdata = [
   {
     title: "Extreme performance",
-    description: "Powered by a Golang/PostgreSQL backend and a React frontend",
+    description: "Powered by a Golang backend",
     icon: IconGauge,
   },
   {
@@ -24,8 +24,8 @@ const mockdata = [
   },
   {
     title: "No junk",
-    description: "Just clean, minimalist code",
-    icon: IconCookie,
+    description: "Just clean, simple code",
+    icon: IconTrash,
   },
 ];
 
@@ -42,17 +42,6 @@ const useStyles = createStyles((theme) => ({
   description: {
     maxWidth: 600,
     margin: "auto",
-
-    "&::after": {
-      content: '""',
-      display: "block",
-      backgroundColor: theme.fn.primaryColor(),
-      width: rem(45),
-      height: rem(2),
-      marginTop: theme.spacing.sm,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
   },
 
   card: {
@@ -84,20 +73,29 @@ export function Feature() {
 
   return (
     <Container size="lg" py="xl">
-      <Group position="center">
-        <Badge variant="filled" size="lg">
-          Like the site?
-        </Badge>
-      </Group>
-
       <Title order={2} className={classes.title} ta="center" mt="sm">
-        Lets make something even better!
+        About
       </Title>
 
-      <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        I make professional full-stack software solutions. Let me tell you a bit
-        more about this application.
+      <Text
+        c="dimmed"
+        className={classes.description}
+        ta="center"
+        mt="md"
+        mb="md"
+      >
+        Backend: Go
+        <br />
+        Frontend: React with Mantine Component Library
+        <br />
+        Database: PostgreSQL
       </Text>
+
+      <Group position="center">
+        <Badge variant="filled" size="lg" mt={5}>
+          See more
+        </Badge>
+      </Group>
 
       <SimpleGrid
         cols={3}

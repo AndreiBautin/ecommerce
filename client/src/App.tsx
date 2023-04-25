@@ -56,9 +56,6 @@ function App() {
         <section id="home">
           <HeroContentLeft />
         </section>
-        <section id="about">
-          <Feature />
-        </section>
         <section id="shop">
           <Grid px={100}>
             <Grid.Col md={4} lg={3}>
@@ -74,6 +71,9 @@ function App() {
               <FeaturesCard />
             </Grid.Col>
           </Grid>
+        </section>
+        <section id="about">
+          <Feature />
         </section>
         <FooterSimple links={links} />
       </AppShell>

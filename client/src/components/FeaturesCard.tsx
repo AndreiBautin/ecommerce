@@ -15,6 +15,7 @@ import {
   IconManualGearbox,
   IconUsers,
 } from "@tabler/icons-react";
+import productImage from "../assets/images/macbook.png";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -76,7 +77,7 @@ export function FeaturesCard() {
   return (
     <Card mt={50} withBorder radius="md" className={classes.card}>
       <Card.Section className={classes.imageSection}>
-        <Image src="https://i.imgur.com/ZL52Q2D.png" alt="Tesla Model S" />
+        <Image src={productImage} />
       </Card.Section>
 
       <Group position="apart" mt="md">
@@ -105,13 +106,10 @@ export function FeaturesCard() {
             <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
               $168.00
             </Text>
-            <Text fz="sm" c="dimmed" fw={500} sx={{ lineHeight: 1 }} mt={3}>
-              per day
-            </Text>
           </div>
 
           <Button radius="xl" style={{ flex: 1 }}>
-            Rent now
+            Add to cart
           </Button>
         </Group>
       </Card.Section>
