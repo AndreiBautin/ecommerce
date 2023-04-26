@@ -15,7 +15,6 @@ import {
   IconManualGearbox,
   IconUsers,
 } from "@tabler/icons-react";
-import productImage from "../assets/images/macbook.png";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -58,45 +57,62 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mockdata = [
-  { label: "4 passengers", icon: IconUsers },
-  { label: "100 km/h in 4 seconds", icon: IconGauge },
-  { label: "Automatic gearbox", icon: IconManualGearbox },
-  { label: "Electric", icon: IconGasStation },
-];
+interface ProductCardProps {
+  product: {
+    imageName: string;
+    productName: string;
+    productDescription: string;
+    specOne: string;
+    specTwo: string;
+    specThree: string;
+    specFour: string;
+    price: number;
+    discount: number;
+  };
+}
 
-export function FeaturesCard() {
+export function ProductCard({ product }: ProductCardProps) {
   const { classes } = useStyles();
-  const features = mockdata.map((feature) => (
-    <Center key={feature.label}>
-      <feature.icon size="1.05rem" className={classes.icon} stroke={1.5} />
-      <Text size="xs">{feature.label}</Text>
+
+  const specDetails = [
+    { label: product.specOne, icon: IconUsers },
+    { label: product.specTwo, icon: IconGauge },
+    { label: product.specThree, icon: IconManualGearbox },
+    { label: product.specFour, icon: IconGasStation },
+  ];
+
+  const specs = specDetails.map((specDetail) => (
+    <Center key={specDetail.label}>
+      <specDetail.icon size="1.05rem" className={classes.icon} stroke={1.5} />
+      <Text size="xs">{specDetail.label}</Text>
     </Center>
   ));
 
   return (
     <Card mt={50} withBorder radius="md" className={classes.card}>
       <Card.Section className={classes.imageSection}>
-        <Image src={productImage} />
+        <Image src={`images/${product.imageName}`} />
       </Card.Section>
 
       <Group position="apart" mt="md">
         <div>
-          <Text fw={500}>Tesla Model S</Text>
+          <Text fw={500}>{product.productName}</Text>
           <Text fz="xs" c="dimmed">
-            Free recharge at any station
+            {product.productDescription}
           </Text>
         </div>
-        <Badge variant="outline">25% off</Badge>
+        {product.discount > 0 && product.discount < 1 && (
+          <Badge variant="outline">{product.discount * 100}% off</Badge>
+        )}
       </Group>
 
       <Card.Section className={classes.section} mt="md">
         <Text fz="sm" c="dimmed" className={classes.label}>
-          Basic configuration
+          Specs
         </Text>
 
         <Group spacing={8} mb={-8}>
-          {features}
+          {specs}
         </Group>
       </Card.Section>
 

@@ -4,7 +4,7 @@ import { HeaderSimple } from "./components/HeaderSimple";
 import { AppShell } from "@mantine/core";
 import { NavbarMinimal } from "./components/NavbarMinimal";
 import { HeroContentLeft } from "./components/HeroContentLeft";
-import { FeaturesCard } from "./components/FeaturesCard";
+import { ProductCard } from "./components/ProductCard";
 import { Grid } from "@mantine/core";
 import { Feature } from "./components/Feature";
 import { FooterSimple } from "./components/FooterSimple";
@@ -30,6 +30,52 @@ function App() {
     { link: "#about", label: "About" },
   ];
 
+  const products = [
+    {
+      imageName: "macbook.jpg",
+      productName: "Macbook",
+      productDescription: "test",
+      specOne: "test",
+      specTwo: "test",
+      specThree: "test",
+      specFour: "test",
+      price: 350.0,
+      discount: 0.3,
+    },
+    {
+      imageName: "macbook.jpg",
+      productName: "Macbook 2",
+      productDescription: "test",
+      specOne: "test",
+      specTwo: "test",
+      specThree: "test",
+      specFour: "test",
+      price: 350.0,
+      discount: 0.4,
+    },
+    {
+      imageName: "macbook.jpg",
+      productName: "Macbook 3",
+      productDescription: "test",
+      specOne: "test",
+      specTwo: "test",
+      specThree: "test",
+      specFour: "test",
+      price: 350.0,
+      discount: 0,
+    },
+    {
+      imageName: "macbook.jpg",
+      productName: "Macbook 4",
+      productDescription: "test",
+      specOne: "test",
+      specTwo: "test",
+      specThree: "test",
+      specFour: "test",
+      price: 350.0,
+      discount: 0.3,
+    },
+  ];
   async function markTodoAdDone(id: number) {
     const updated = await fetch(`${ENDPOINT}/api/todosn/${id}/done`, {
       method: "PATCH",
@@ -58,18 +104,13 @@ function App() {
         </section>
         <section id="shop">
           <Grid px={100}>
-            <Grid.Col md={4} lg={3}>
-              <FeaturesCard />
-            </Grid.Col>
-            <Grid.Col md={4} lg={3}>
-              <FeaturesCard />
-            </Grid.Col>
-            <Grid.Col md={4} lg={3}>
-              <FeaturesCard />
-            </Grid.Col>
-            <Grid.Col md={4} lg={3}>
-              <FeaturesCard />
-            </Grid.Col>
+            {products.map(function (product) {
+              return (
+                <Grid.Col md={4} lg={3}>
+                  <ProductCard product={product} />
+                </Grid.Col>
+              );
+            })}
           </Grid>
         </section>
         <section id="about">
