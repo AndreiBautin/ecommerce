@@ -1,11 +1,20 @@
 import React from "react";
 import useSWR from "swr";
+import { createStyles } from "@mantine/core";
 
 export interface Product {
   id: number;
   title: string;
   price: number;
 }
+
+const useStyles = createStyles((theme) => ({
+  container: {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "space-around",
+  },
+}));
 
 export const ENDPOINT = "http://localhost:4000";
 
@@ -15,9 +24,11 @@ const fetcher = (url: string) =>
 function ProductsSection() {
   const { data } = useSWR<Product[]>("api/products", fetcher);
 
+  const { classes } = useStyles();
+
   return (
     <section className="wrapper style1">
-      <div className="container">
+      <div className={classes.container}>
         <div className="row">
           <section className="col-6 col-12-narrower">
             <div className="box post">

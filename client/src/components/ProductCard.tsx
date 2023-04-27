@@ -10,16 +10,24 @@ import {
   rem,
 } from "@mantine/core";
 import {
-  IconGasStation,
-  IconGauge,
-  IconManualGearbox,
-  IconUsers,
+  IconFrame,
+  IconBadgeHd,
+  IconScreenShare,
+  IconCpu,
+  IconCpu2,
 } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
+  container: {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "space-around",
+  },
+
   card: {
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    width: "100%",
   },
 
   imageSection: {
@@ -61,11 +69,11 @@ interface ProductCardProps {
   product: {
     imageName: string;
     productName: string;
-    productDescription: string;
-    specOne: string;
-    specTwo: string;
-    specThree: string;
-    specFour: string;
+    CPU: string;
+    GPU: string;
+    Display: string;
+    HDDSSD: string;
+    RAM: string;
     price: number;
     discount: number;
   };
@@ -74,11 +82,20 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const { classes } = useStyles();
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
+  var priceWithDiscount = product.price * (1 - product.discount);
+  var formattedPrice = formatter.format(priceWithDiscount);
+
   const specDetails = [
-    { label: product.specOne, icon: IconUsers },
-    { label: product.specTwo, icon: IconGauge },
-    { label: product.specThree, icon: IconManualGearbox },
-    { label: product.specFour, icon: IconGasStation },
+    { label: product.CPU, icon: IconCpu },
+    { label: product.GPU, icon: IconCpu2 },
+    { label: product.Display, icon: IconScreenShare },
+    { label: product.HDDSSD, icon: IconBadgeHd },
+    { label: product.RAM, icon: IconFrame },
   ];
 
   const specs = specDetails.map((specDetail) => (
@@ -97,9 +114,6 @@ export function ProductCard({ product }: ProductCardProps) {
       <Group position="apart" mt="md">
         <div>
           <Text fw={500}>{product.productName}</Text>
-          <Text fz="xs" c="dimmed">
-            {product.productDescription}
-          </Text>
         </div>
         {product.discount > 0 && product.discount < 1 && (
           <Badge variant="outline">{product.discount * 100}% off</Badge>
@@ -120,7 +134,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <Group spacing={30}>
           <div>
             <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
-              $168.00
+              {formattedPrice}
             </Text>
           </div>
 
