@@ -16,6 +16,7 @@ import {
   IconCpu,
   IconCpu2,
 } from "@tabler/icons-react";
+import { Product } from "../interfaces/Product";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -66,17 +67,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface ProductCardProps {
-  product: {
-    imageName: string;
-    productName: string;
-    cpu: string;
-    gpu: string;
-    display: string;
-    hddssd: string;
-    ram: string;
-    price: number;
-    discount: number;
-  };
+  product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {

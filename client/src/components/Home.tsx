@@ -5,18 +5,7 @@ import { Feature } from "./Feature";
 import { ProductCard } from "./ProductCard";
 import { FooterSimple } from "./FooterSimple";
 import useSWR from "swr";
-
-export interface Product {
-  imageName: string;
-  productName: string;
-  cpu: string;
-  gpu: string;
-  display: string;
-  hddssd: string;
-  ram: string;
-  price: number;
-  discount: number;
-}
+import { Product } from "../interfaces/Product";
 
 export const ENDPOINT = "http://localhost:4000";
 
