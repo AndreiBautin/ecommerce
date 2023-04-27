@@ -69,11 +69,11 @@ interface ProductCardProps {
   product: {
     imageName: string;
     productName: string;
-    CPU: string;
-    GPU: string;
-    Display: string;
-    HDDSSD: string;
-    RAM: string;
+    cpu: string;
+    gpu: string;
+    display: string;
+    hddssd: string;
+    ram: string;
     price: number;
     discount: number;
   };
@@ -91,11 +91,11 @@ export function ProductCard({ product }: ProductCardProps) {
   var formattedPrice = formatter.format(priceWithDiscount);
 
   const specDetails = [
-    { label: product.CPU, icon: IconCpu },
-    { label: product.GPU, icon: IconCpu2 },
-    { label: product.Display, icon: IconScreenShare },
-    { label: product.HDDSSD, icon: IconBadgeHd },
-    { label: product.RAM, icon: IconFrame },
+    { label: product.cpu, icon: IconCpu },
+    { label: product.gpu, icon: IconCpu2 },
+    { label: product.display, icon: IconScreenShare },
+    { label: product.hddssd, icon: IconBadgeHd },
+    { label: product.ram, icon: IconFrame },
   ];
 
   const specs = specDetails.map((specDetail) => (
@@ -105,7 +105,7 @@ export function ProductCard({ product }: ProductCardProps) {
     </Center>
   ));
 
-  return (
+  var markup = (
     <Card mt={50} withBorder radius="md" className={classes.card}>
       <Card.Section className={classes.imageSection}>
         <Image src={`images/${product.imageName}`} />
@@ -145,4 +145,6 @@ export function ProductCard({ product }: ProductCardProps) {
       </Card.Section>
     </Card>
   );
+
+  return markup;
 }
