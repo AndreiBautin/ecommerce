@@ -4,8 +4,28 @@ import { Grid } from "@mantine/core";
 import { Feature } from "./Feature";
 import { ProductCard } from "./ProductCard";
 import { FooterSimple } from "./FooterSimple";
+import useSWR from "swr";
+
+export interface Product {
+  imageName: string;
+  productName: string;
+  CPU: string;
+  GPU: string;
+  Display: string;
+  HDDSSD: string;
+  RAM: string;
+  price: number;
+  discount: number;
+}
+
+export const ENDPOINT = "http://localhost:4000";
+
+const fetcher = (url: string) =>
+  fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
 
 function Home() {
+  const { data, mutate } = useSWR<Product[]>("api/products", fetcher);
+
   const links = [
     { link: "#home", label: "Home" },
     { link: "#shop", label: "Shop" },
@@ -64,6 +84,7 @@ function Home() {
     <div>
       <section id="home">
         <HeroContentLeft />
+        {JSON.stringify(data)}
       </section>
       <section id="shop">
         <Grid px={100}>

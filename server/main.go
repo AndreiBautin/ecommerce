@@ -19,9 +19,15 @@ type Todo struct {
 
 type Product struct {
 	Id int `json:"id"`
-	Title string `json:"title"`
-	Price float32 `json:"price"`
 	ImageName string `json:"imageName"`
+	ProductName string `json:"productName"`
+	CPU string `json:"cpu"`
+	GPU string `json:"gpu"`
+	Display string `json:"display"`
+	HDDSSD string `json:"hddssd"`
+	RAM string `json:"ram"`
+	Price float32 `json:"price"`
+	Discount float32 `json:"discount"`
 }
 
 func main() {
@@ -47,33 +53,6 @@ func main() {
 	}))
 
 	todos := []Todo{}
-
-	// products:= []Product{    
-	// 	{
-	// 		Id: 1,
-	// 		Title: "Notebook",
-	// 		Price: 1.5,
-	// 		ImageName: "Notebook.png",
-	// 	},
-	// 	{
-	// 		Id: 2,
-	// 		Title: "Pen",
-	// 		Price: 2.5,
-	// 		ImageName: "Pen.png",
-	// 	},
-	// 	{
-	// 		Id: 3,
-	// 		Title: "Printer",
-	// 		Price: 20.5,
-	// 		ImageName: "Printer.png",
-	// 	},
-	// 	{
-	// 		Id: 4,
-	// 		Title: "Ink",
-	// 		Price: 24.5,
-	// 		ImageName: "Ink.png",
-	// 	},
-	// }
 
 	app.Get("/healthcheck", func(c *fiber.Ctx) error {
 		return c.SendString("OK")
@@ -116,20 +95,20 @@ func main() {
 
 	app.Get("/api/products/", func(c *fiber.Ctx) error {
 		rows, err := db.Query("SELECT * FROM public.\"Product\"")
-		if err != nil {
-			return c.JSON(err)
-		}
+		CheckError(err)
+
+		fmt.Print("Inside api")
 		var products []*Product // declare a slice of courses that will hold all of the Course instances scanned from the rows object
 		for rows.Next() { // this stops when there are no more rows
 			c := new(Product) // initialize a new instance
-			err := rows.Scan(&c.Id, &c.Title, &c.Price, &c.ImageName) // scan contents of the current row into the instance
-			if err != nil {
-				return err
-			}
+			err := rows.Scan(&c.Id, &c.ImageName, &c.ProductName, &c.CPU, &c.GPU, &c.Display, &c.HDDSSD, &c.RAM, &c.Price, &c.Discount) // scan contents of the current row into the instance
+			CheckError(err)
 		
 			products = append(products, c) // add each instance to the slice
 		}
-		if err := rows.Err(); err != nil { // make sure that there was no issue during the process
+		if err := rows.Err(); 
+		err != nil { // make sure that there was no issue during the process
+			CheckError(err)
 			return err
 		}
 
