@@ -71,6 +71,24 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  function test() {
+    var existingCart = localStorage.getItem("cart");
+    if (!existingCart) {
+      existingCart = "";
+    }
+    var parsedCart;
+    try {
+      parsedCart = JSON.parse(existingCart);
+    } catch (e) {
+      console.log(e);
+    }
+    if (!parsedCart) {
+      parsedCart = [];
+    }
+    parsedCart.push(product);
+    localStorage.setItem("cart", JSON.stringify(parsedCart));
+  }
+
   const { classes } = useStyles();
 
   const formatter = new Intl.NumberFormat("en-US", {
@@ -129,7 +147,7 @@ export function ProductCard({ product }: ProductCardProps) {
             </Text>
           </div>
 
-          <Button radius="xl" style={{ flex: 1 }}>
+          <Button radius="xl" style={{ flex: 1 }} onClick={test}>
             Add to cart
           </Button>
         </Group>
