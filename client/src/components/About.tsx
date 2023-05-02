@@ -55,7 +55,7 @@ function seeMore() {
   window.location.replace("https://www.andreibautin.com");
 }
 
-export function Feature() {
+export function About() {
   const { classes, theme } = useStyles();
   const features = mockdata.map((feature) => (
     <Card

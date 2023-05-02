@@ -29,16 +29,6 @@ function App() {
     { link: "/cart", label: "Cart" },
   ];
 
-  const { data, mutate } = useSWR<Todo[]>("api/todos", fetcher);
-
-  async function markTodoAdDone(id: number) {
-    const updated = await fetch(`${ENDPOINT}/api/todosn/${id}/done`, {
-      method: "PATCH",
-    }).then((r) => r.json());
-
-    mutate(updated);
-  }
-
   return (
     <div id="page-wrapper">
       <AppShell
