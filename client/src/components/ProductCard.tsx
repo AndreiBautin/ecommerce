@@ -72,7 +72,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  function test() {
+  function AddToCart() {
     var existingCart = localStorage.getItem("cart");
     if (!existingCart) {
       existingCart = "";
@@ -153,7 +153,7 @@ export function ProductCard({ product }: ProductCardProps) {
             </Text>
           </div>
 
-          <Button radius="xl" style={{ flex: 1 }} onClick={test}>
+          <Button radius="xl" style={{ flex: 1 }} onClick={AddToCart}>
             Add to cart
           </Button>
         </Group>
