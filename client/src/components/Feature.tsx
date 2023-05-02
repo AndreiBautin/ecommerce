@@ -9,7 +9,7 @@ import {
   Container,
   rem,
 } from "@mantine/core";
-import { IconGauge, IconUser, IconTrash } from "@tabler/icons-react";
+import { IconGauge, IconUser, IconLock } from "@tabler/icons-react";
 
 const mockdata = [
   {
@@ -18,14 +18,14 @@ const mockdata = [
     icon: IconGauge,
   },
   {
-    title: "Security focused",
-    description: "Integrated with Google Authentication",
+    title: "User friendly",
+    description: "Slick and responsive design",
     icon: IconUser,
   },
   {
-    title: "No junk",
-    description: "Just clean, simple code",
-    icon: IconTrash,
+    title: "Secure",
+    description: "Payments integrated with Stripe.js",
+    icon: IconLock,
   },
 ];
 
