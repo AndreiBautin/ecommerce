@@ -5,6 +5,7 @@ import { AppShell } from "@mantine/core";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
 import { Route, Routes } from "react-router-dom";
+import { Notifications } from "@mantine/notifications";
 
 export interface Todo {
   id: number;
@@ -50,6 +51,7 @@ function App() {
           },
         })}
       >
+        <Notifications />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cart" element={<Cart />} />

@@ -17,6 +17,7 @@ import {
   IconCpu2,
 } from "@tabler/icons-react";
 import { Product } from "../interfaces/Product";
+import { Notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -87,6 +88,11 @@ export function ProductCard({ product }: ProductCardProps) {
     }
     parsedCart.push(product);
     localStorage.setItem("cart", JSON.stringify(parsedCart));
+
+    Notifications.show({
+      title: "Cart Updated",
+      message: "Item has been added",
+    });
   }
 
   const { classes } = useStyles();
