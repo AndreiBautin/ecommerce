@@ -51,6 +51,10 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+function seeMore() {
+  window.location.replace("https://www.andreibautin.com");
+}
+
 export function Feature() {
   const { classes, theme } = useStyles();
   const features = mockdata.map((feature) => (
@@ -92,7 +96,7 @@ export function Feature() {
       </Text>
 
       <Group position="center">
-        <Badge variant="filled" size="lg" mt={5}>
+        <Badge variant="filled" size="lg" mt={5} onClick={() => seeMore()}>
           See more
         </Badge>
       </Group>

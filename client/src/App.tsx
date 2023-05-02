@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import { Route, Routes } from "react-router-dom";
 import { Notifications } from "@mantine/notifications";
+import { FooterSimple } from "./components/FooterSimple";
+import Checkout from "./components/Checkout";
 
 export interface Todo {
   id: number;
@@ -42,6 +44,7 @@ function App() {
       <AppShell
         padding="md"
         header={<HeaderSimple links={links} />}
+        footer={<FooterSimple links={links} />}
         styles={(theme) => ({
           main: {
             backgroundColor:
@@ -55,6 +58,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
         </Routes>
       </AppShell>
     </div>

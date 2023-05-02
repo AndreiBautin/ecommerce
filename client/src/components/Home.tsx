@@ -41,7 +41,6 @@ function Home() {
       <section id="about">
         <Feature />
       </section>
-      <FooterSimple links={links} />
     </div>
   );
 }

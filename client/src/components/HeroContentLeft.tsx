@@ -72,6 +72,10 @@ const useStyles = createStyles((theme) => ({
 export function HeroContentLeft() {
   const { classes } = useStyles();
 
+  function learnMore() {
+    window.location.replace("/#about");
+  }
+
   return (
     <div className={classes.hero}>
       <Overlay
@@ -90,6 +94,7 @@ export function HeroContentLeft() {
           size="xl"
           radius="xl"
           className={classes.control}
+          onClick={() => learnMore()}
         >
           Learn more
         </Button>
