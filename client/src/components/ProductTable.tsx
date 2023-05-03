@@ -10,64 +10,36 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconPencil, IconTrash } from "@tabler/icons-react";
+import { useState } from "react";
 
-interface ProductTableProps {
-  data: {
-    imageName: string;
-    productName: string;
-    price: number;
-    discount: number;
-  }[];
+interface Product {
+  imageName: string;
+  productName: string;
+  price: number;
+  discount: number;
 }
 
-const jobColors: Record<string, string> = {
-  engineer: "blue",
-  manager: "cyan",
-  designer: "pink",
-};
+export function ProductTable() {
+  var data = JSON.parse(localStorage.getItem("cart") ?? "");
 
-export function ProductTable({ data }: ProductTableProps) {
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
+  const [cart, updateCart] = useState(data);
 
-  var newData = data.map(function (ele) {
-    var priceWithDiscount = ele.price * (1 - ele.discount);
-    var formattedPrice = formatter.format(priceWithDiscount);
-    return { ...ele, formattedPrice: formattedPrice };
-  });
+  const handleRemoveItem = (productName: string) => {
+    updateCart(
+      cart.filter((item: Product) => item.productName !== productName)
+    );
+  };
 
-  const theme = useMantineTheme();
-  const rows = newData.map((item) => (
-    <tr key={item.productName}>
-      <td>
-        <Group spacing="sm">
-          <Avatar size={100} src={`/images/${item.imageName}`} />
-          <Text fz="sm" fw={500}>
-            {item.productName}
-          </Text>
-        </Group>
-      </td>
-      <td>
-        <Text fz="sm" c="dimmed">
-          {item.productName}
-        </Text>
-      </td>
-      <td>
-        <Text fz="sm" c="dimmed">
-          {item.formattedPrice}
-        </Text>
-      </td>
-      <td>
-        <Group spacing={0} position="right">
-          <ActionIcon color="red">
-            <IconTrash size="1rem" stroke={1.5} onClick={() => {}} />
-          </ActionIcon>
-        </Group>
-      </td>
-    </tr>
-  ));
+  // const formatter = new Intl.NumberFormat("en-US", {
+  //   style: "currency",
+  //   currency: "USD",
+  // });
+
+  // var newData = cart.map(function (ele) {
+  //   var priceWithDiscount = ele.price * (1 - ele.discount);
+  //   var formattedPrice = formatter.format(priceWithDiscount);
+  //   return { ...ele, formattedPrice: formattedPrice };
+  // });
 
   return (
     <ScrollArea>
@@ -80,7 +52,41 @@ export function ProductTable({ data }: ProductTableProps) {
             <th />
           </tr>
         </thead>
-        <tbody>{rows}</tbody>
+        <tbody>
+          {cart.map((item: Product) => (
+            <tr>
+              <td>
+                <Group spacing="sm">
+                  <Avatar size={100} src={`/images/${item.imageName}`} />
+                  <Text fz="sm" fw={500}>
+                    {item.productName}
+                  </Text>
+                </Group>
+              </td>
+              <td>
+                <Text fz="sm" c="dimmed">
+                  {item.productName}
+                </Text>
+              </td>
+              <td>
+                <Text fz="sm" c="dimmed">
+                  {item.price}
+                </Text>
+              </td>
+              <td>
+                <Group spacing={0} position="right">
+                  <ActionIcon color="red">
+                    <IconTrash
+                      size="1rem"
+                      stroke={1.5}
+                      onClick={() => handleRemoveItem(item.productName)}
+                    />
+                  </ActionIcon>
+                </Group>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
     </ScrollArea>
   );
