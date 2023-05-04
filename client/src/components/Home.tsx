@@ -6,7 +6,7 @@ import useSWR from "swr";
 import { Product } from "../interfaces/Product";
 export const ENDPOINT = "http://localhost:4000";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { decrement, increment } from "../features/counter/counterSlice";
+import { add } from "../features/cart/cartSlice";
 
 const fetcher = (url: string) =>
   fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
@@ -14,24 +14,34 @@ const fetcher = (url: string) =>
 function Home({}) {
   const { data } = useSWR<Product[]>("api/products", fetcher);
 
-  const count = useAppSelector((state) => state.counter.value);
+  const cart = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   return (
     <div>
       <button
         aria-label="Increment value"
-        onClick={() => dispatch(increment())}
+        onClick={() =>
+          dispatch(
+            add({
+              id: 1,
+              imageName: "laptop.jpg",
+              productName: "acer",
+              cpu: "ryzen",
+              gpu: "3060ti",
+              display: "hd",
+              hddssd: "1tb",
+              ram: "1tb",
+              price: 100,
+              discount: 0,
+              quantity: 1,
+            })
+          )
+        }
       >
-        Increment
+        add
       </button>
-      <span>{count}</span>
-      <button
-        aria-label="Decrement value"
-        onClick={() => dispatch(decrement())}
-      >
-        Decrement
-      </button>
+      <span>{JSON.stringify(cart.products)}</span>
       <section id="home">
         <HeroContentLeft />
       </section>
