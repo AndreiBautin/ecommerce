@@ -7,6 +7,7 @@ import {
   Text,
   rem,
 } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -70,10 +71,12 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function HeroContentLeft() {
+  const navigate = useNavigate();
+
   const { classes } = useStyles();
 
   function learnMore() {
-    window.location.replace("/#about");
+    navigate("/#about");
   }
 
   return (

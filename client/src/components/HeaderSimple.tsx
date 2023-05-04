@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import logo from "../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -76,6 +77,8 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
 
+  const navigate = useNavigate();
+
   const items = links.map((link) => (
     <a
       key={link.label}
@@ -86,7 +89,7 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
-        window.location.href = link.link;
+        navigate(link.link);
       }}
     >
       {link.label}
