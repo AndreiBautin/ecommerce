@@ -5,6 +5,8 @@ import { ProductCard } from "./ProductCard";
 import useSWR from "swr";
 import { Product } from "../interfaces/Product";
 export const ENDPOINT = "http://localhost:4000";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { decrement, increment } from "../features/counter/counterSlice";
 
 const fetcher = (url: string) =>
   fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
@@ -12,8 +14,24 @@ const fetcher = (url: string) =>
 function Home({}) {
   const { data } = useSWR<Product[]>("api/products", fetcher);
 
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
+
   return (
     <div>
+      <button
+        aria-label="Increment value"
+        onClick={() => dispatch(increment())}
+      >
+        Increment
+      </button>
+      <span>{count}</span>
+      <button
+        aria-label="Decrement value"
+        onClick={() => dispatch(decrement())}
+      >
+        Decrement
+      </button>
       <section id="home">
         <HeroContentLeft />
       </section>
