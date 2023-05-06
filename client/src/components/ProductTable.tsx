@@ -9,7 +9,6 @@ import {
 import { IconTrash } from "@tabler/icons-react";
 import { CartProduct } from "../features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { createStyles } from "@mantine/core";
 import { remove } from "../features/cart/cartSlice";
 
 export function ProductTable() {
@@ -57,12 +56,16 @@ export function ProductTable() {
             </td>
             <td>
               <Text fz="sm" c="dimmed" ta="left">
-                {formatter.format(row.product.price)}
+                {formatter.format(
+                  row.product.price * (1 - row.product.discount)
+                )}
               </Text>
             </td>
             <td>
               <Text fz="sm" c="dimmed" ta="left">
-                {formatter.format(row.product.price * row.quantity)}
+                {formatter.format(
+                  row.product.price * (1 - row.product.discount) * row.quantity
+                )}
               </Text>
             </td>
             <td>
@@ -79,6 +82,28 @@ export function ProductTable() {
           </tr>
         ))}
       </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            {" "}
+            <Text fz="sm" c="dimmed" ta="left">
+              Grand Total:{" "}
+              {formatter.format(
+                cart.products.reduce(function (acc, obj) {
+                  var priceWithDiscount =
+                    obj.product.price * (1 - obj.product.discount);
+                  return acc + priceWithDiscount * obj.quantity;
+                }, 0)
+              )}
+            </Text>
+          </td>
+          <td></td>
+        </tr>
+      </tfoot>
     </Table>
   );
 }
