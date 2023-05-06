@@ -20,6 +20,11 @@ export function ProductTable() {
     dispatch(remove(productId));
   };
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   return (
     <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
       <thead>
@@ -52,12 +57,12 @@ export function ProductTable() {
             </td>
             <td>
               <Text fz="sm" c="dimmed" ta="left">
-                {row.product.price}
+                {formatter.format(row.product.price)}
               </Text>
             </td>
             <td>
               <Text fz="sm" c="dimmed" ta="left">
-                {row.product.price * row.quantity}
+                {formatter.format(row.product.price * row.quantity)}
               </Text>
             </td>
             <td>
