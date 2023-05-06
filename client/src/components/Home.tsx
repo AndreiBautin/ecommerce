@@ -14,34 +14,8 @@ const fetcher = (url: string) =>
 function Home({}) {
   const { data } = useSWR<Product[]>("api/products", fetcher);
 
-  const cart = useAppSelector((state) => state.cart);
-  const dispatch = useAppDispatch();
-
   return (
     <div>
-      <button
-        aria-label="Increment value"
-        onClick={() =>
-          dispatch(
-            add({
-              id: 1,
-              imageName: "laptop.jpg",
-              productName: "acer",
-              cpu: "ryzen",
-              gpu: "3060ti",
-              display: "hd",
-              hddssd: "1tb",
-              ram: "1tb",
-              price: 100,
-              discount: 0,
-              quantity: 1,
-            })
-          )
-        }
-      >
-        add
-      </button>
-      <span>{JSON.stringify(cart.products)}</span>
       <section id="home">
         <HeroContentLeft />
       </section>

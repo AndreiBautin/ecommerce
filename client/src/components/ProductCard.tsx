@@ -18,6 +18,8 @@ import {
 } from "@tabler/icons-react";
 import { Product } from "../interfaces/Product";
 import { Notifications } from "@mantine/notifications";
+import { add } from "../features/cart/cartSlice";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -72,22 +74,24 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const dispatch = useAppDispatch();
+
   function AddToCart() {
-    var existingCart = localStorage.getItem("cart");
-    if (!existingCart) {
-      existingCart = "";
-    }
-    var parsedCart;
-    try {
-      parsedCart = JSON.parse(existingCart);
-    } catch (e) {
-      console.log(e);
-    }
-    if (!parsedCart) {
-      parsedCart = [];
-    }
-    parsedCart.push(product);
-    localStorage.setItem("cart", JSON.stringify(parsedCart));
+    dispatch(
+      add({
+        id: product.id,
+        imageName: product.imageName,
+        productName: product.productName,
+        cpu: product.cpu,
+        gpu: product.gpu,
+        display: product.display,
+        hddssd: product.hddssd,
+        ram: product.ram,
+        price: product.price,
+        discount: product.discount,
+        quantity: 1,
+      })
+    );
 
     Notifications.show({
       title: "Cart Updated",
