@@ -16,10 +16,10 @@ import {
   IconCpu,
   IconCpu2,
 } from "@tabler/icons-react";
-import { Product } from "../interfaces/Product";
 import { Notifications } from "@mantine/notifications";
 import { add } from "../features/cart/cartSlice";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
+import { Product } from "../features/cart/cartSlice";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -79,16 +79,18 @@ export function ProductCard({ product }: ProductCardProps) {
   function AddToCart() {
     dispatch(
       add({
-        id: product.id,
-        imageName: product.imageName,
-        productName: product.productName,
-        cpu: product.cpu,
-        gpu: product.gpu,
-        display: product.display,
-        hddssd: product.hddssd,
-        ram: product.ram,
-        price: product.price,
-        discount: product.discount,
+        product: {
+          id: product.id,
+          imageName: product.imageName,
+          productName: product.productName,
+          cpu: product.cpu,
+          gpu: product.gpu,
+          display: product.display,
+          hddssd: product.hddssd,
+          ram: product.ram,
+          price: product.price,
+          discount: product.discount,
+        },
         quantity: 1,
       })
     );

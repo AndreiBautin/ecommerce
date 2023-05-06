@@ -3,10 +3,8 @@ import { Grid } from "@mantine/core";
 import { About } from "./About";
 import { ProductCard } from "./ProductCard";
 import useSWR from "swr";
-import { Product } from "../interfaces/Product";
 export const ENDPOINT = "http://localhost:4000";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { add } from "../features/cart/cartSlice";
+import { Product } from "../features/cart/cartSlice";
 
 const fetcher = (url: string) =>
   fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
