@@ -1,45 +1,20 @@
 import {
   Avatar,
-  Badge,
   Table,
   Group,
   Text,
   ActionIcon,
-  Anchor,
   ScrollArea,
-  useMantineTheme,
 } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
-
-interface Product {
-  imageName: string;
-  productName: string;
-  price: number;
-  discount: number;
-}
+import { CartProduct } from "../features/cart/cartSlice";
+import { useAppSelector } from "../app/hooks";
 
 export function ProductTable() {
-  var data = JSON.parse(localStorage.getItem("cart") ?? "");
+  const cart = useAppSelector((state) => state.cart);
 
-  const [cart, updateCart] = useState(data);
-
-  const handleRemoveItem = (productName: string) => {
-    updateCart(
-      cart.filter((item: Product) => item.productName !== productName)
-    );
-  };
-
-  // const formatter = new Intl.NumberFormat("en-US", {
-  //   style: "currency",
-  //   currency: "USD",
-  // });
-
-  // var newData = cart.map(function (ele) {
-  //   var priceWithDiscount = ele.price * (1 - ele.discount);
-  //   var formattedPrice = formatter.format(priceWithDiscount);
-  //   return { ...ele, formattedPrice: formattedPrice };
-  // });
+  const removeItem = (productId: number) => {};
 
   return (
     <ScrollArea>
@@ -48,29 +23,41 @@ export function ProductTable() {
           <tr>
             <th>Picture</th>
             <th>Name</th>
+            <th>Quantity</th>
             <th>Price</th>
+            <th>Total</th>
             <th />
           </tr>
         </thead>
         <tbody>
-          {cart.map((item: Product) => (
+          {cart.products.map((row: CartProduct) => (
             <tr>
               <td>
                 <Group spacing="sm">
-                  <Avatar size={100} src={`/images/${item.imageName}`} />
+                  <Avatar size={100} src={`/images/${row.product.imageName}`} />
                   <Text fz="sm" fw={500}>
-                    {item.productName}
+                    {row.product.productName}
                   </Text>
                 </Group>
               </td>
               <td>
                 <Text fz="sm" c="dimmed">
-                  {item.productName}
+                  {row.product.productName}
                 </Text>
               </td>
               <td>
                 <Text fz="sm" c="dimmed">
-                  {item.price}
+                  {row.quantity}
+                </Text>
+              </td>
+              <td>
+                <Text fz="sm" c="dimmed">
+                  {row.product.price}
+                </Text>
+              </td>
+              <td>
+                <Text fz="sm" c="dimmed">
+                  {row.product.price * row.quantity}
                 </Text>
               </td>
               <td>
@@ -79,7 +66,7 @@ export function ProductTable() {
                     <IconTrash
                       size="1rem"
                       stroke={1.5}
-                      onClick={() => handleRemoveItem(item.productName)}
+                      onClick={() => removeItem(row.product.id)}
                     />
                   </ActionIcon>
                 </Group>

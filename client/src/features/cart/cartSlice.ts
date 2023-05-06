@@ -14,7 +14,7 @@ export interface Product {
   discount: number;
 }
 
-interface CartProduct {
+export interface CartProduct {
   product: Product;
   quantity: number;
 }
