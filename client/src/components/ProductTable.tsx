@@ -8,21 +8,17 @@ import {
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { CartProduct } from "../features/cart/cartSlice";
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { createStyles } from "@mantine/core";
-
-const useStyles = createStyles((theme) => ({
-  header: {
-    textAlign: "center",
-  },
-}));
+import { remove } from "../features/cart/cartSlice";
 
 export function ProductTable() {
-  const { classes, cx } = useStyles();
-
   const cart = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
 
-  const removeItem = (productId: number) => {};
+  const removeItem = (productId: number) => {
+    dispatch(remove(productId));
+  };
 
   return (
     <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
