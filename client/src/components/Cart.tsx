@@ -14,7 +14,7 @@ function Cart() {
 
   return (
     <Container px="lg">
-      <Title order={2} ta="center" mt="sm">
+      <Title order={2} ta="center" mt="sm" mb="lg">
         Cart
       </Title>
       <ProductTable />
