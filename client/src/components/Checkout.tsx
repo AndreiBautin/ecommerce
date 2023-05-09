@@ -10,6 +10,8 @@ import {
 import { useState } from "react";
 import { useAppSelector } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { clear } from "../features/cart/cartSlice";
+import { useAppDispatch } from "../app/hooks";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -32,6 +34,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Checkout() {
+  const dispatch = useAppDispatch();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
@@ -67,6 +71,7 @@ export function Checkout() {
     //   },
     //   body: JSON.stringify(payload),
     // }).then((r) => r.json());
+    dispatch(clear());
     navigate("/");
   }
 
