@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Table,
-  Group,
-  Text,
-  ActionIcon,
-  ScrollArea,
-} from "@mantine/core";
+import { Avatar, Table, Group, Text, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { CartProduct } from "../features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";

@@ -19,7 +19,7 @@ export interface CartProduct {
   quantity: number;
 }
 
-interface CartState {
+export interface CartState {
   products: Array<CartProduct>;
 }
 
