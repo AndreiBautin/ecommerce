@@ -61,16 +61,15 @@ export function Checkout() {
       zip: zip,
       phone: phone,
       email: email,
-      cart: cart,
+      cart: cart.products,
     };
-    alert(JSON.stringify(payload));
-    // const ordered = await fetch(`${ENDPOINT}/api/orders`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(payload),
-    // }).then((r) => r.json());
+    await fetch(`${ENDPOINT}/api/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
     dispatch(clear());
     navigate("/");
   }

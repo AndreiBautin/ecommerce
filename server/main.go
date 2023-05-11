@@ -10,13 +10,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Todo struct {
-	ID int `json:"id"`
-	Title string `json:"title"`
-	Done bool `json:"done"`
-	Body string `json:"body"`
-}
-
 type Product struct {
 	Id int `json:"id"`
 	ImageName string `json:"imageName"`
@@ -28,6 +21,24 @@ type Product struct {
 	RAM string `json:"ram"`
 	Price float32 `json:"price"`
 	Discount float32 `json:"discount"`
+}
+
+type OrderProduct struct {
+	Product Product `json:product`
+	Quantity int `json:quantity`
+}
+
+type Order struct {
+	ID int `json:id`
+	FirstName string `json:firstName`
+	LastName string `json:lastName`
+	Address string `json:address`
+	City string `json:city`
+	State string `json:state`
+	Zip string `json:zip`
+	Phone string `json:phone`
+	Email string `json:email`
+	Cart []OrderProduct `json:cart`
 }
 
 func main() {
@@ -52,52 +63,14 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
-	todos := []Todo{}
-
 	app.Get("/healthcheck", func(c *fiber.Ctx) error {
 		return c.SendString("OK")
-	})
-
-	app.Post("/api/todos", func(c *fiber.Ctx) error {
-		todo := &Todo{}
-
-		if err := c.BodyParser(todo); err != nil {
-			return err
-		}
-
-		todo.ID = len(todos) + 1
-
-		todos = append(todos, *todo)
-
-		return c.JSON(todos)
-	})
-
-	app.Patch("/api/todos/:id/done", func(c *fiber.Ctx) error {
-		id, err := c.ParamsInt("id")
-
-		if err != nil {
-			return c.Status(401).SendString("Invalid id")
-		}
-
-		for i, t := range todos {
-			if t.ID == id {
-				todos[i].Done = true
-				break
-			}
-		}
-
-		return c.JSON(todos)
-	})
-
-	app.Get("/api/todos/", func(c *fiber.Ctx) error {
-		return c.JSON(todos)
 	})
 
 	app.Get("/api/products/", func(c *fiber.Ctx) error {
 		rows, err := db.Query("SELECT * FROM public.\"Product\"")
 		CheckError(err)
 
-		fmt.Print("Inside api")
 		var products []*Product // declare a slice of courses that will hold all of the Course instances scanned from the rows object
 		for rows.Next() { // this stops when there are no more rows
 			c := new(Product) // initialize a new instance
@@ -115,7 +88,30 @@ func main() {
 		return c.JSON(products)
 	})
 
+	app.Post("/api/orders", func(c *fiber.Ctx) error {
+		order := &Order{}
 
+		if err := c.BodyParser(order); err != nil {
+			log.Fatal(err)
+			return err
+		}
+		
+		lastInsertId := 0
+		query := fmt.Sprintf("INSERT INTO \"Order\" (\"FirstName\", \"LastName\", \"Address\", \"City\", \"State\", \"Zip\", \"Phone\", \"Email\") VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') RETURNING \"Id\";", order.FirstName, order.LastName, order.Address, order.City, order.State, order.Zip, order.Phone, order.Email)
+		
+		err := db.QueryRow(query).Scan(&lastInsertId)
+		CheckError(err)		
+
+		for index, element := range order.Cart {
+			query2 := fmt.Sprintf("INSERT INTO \"OrderProduct\" (\"Quantity\", \"ProductId\", \"OrderId\") VALUES ('%d', '%d', '%d');", element.Quantity, element.Product.Id, lastInsertId)
+			row, err := db.Query(query2)
+			CheckError(err)
+			print(row)
+			print(index)
+		}
+
+		return c.JSON("success")
+	})
 
 	log.Fatal(app.Listen(":4000"))
 }
