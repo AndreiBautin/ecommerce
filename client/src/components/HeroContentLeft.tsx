@@ -76,7 +76,7 @@ export function HeroContentLeft() {
   const { classes } = useStyles();
 
   function learnMore() {
-    navigate("/#about");
+    window.location.replace("https://www.andreibautin.com");
   }
 
   return (
@@ -87,7 +87,7 @@ export function HeroContentLeft() {
         zIndex={0}
       />
       <Container className={classes.container}>
-        <Title className={classes.title}>Laptop Shop</Title>
+        <Title className={classes.title}>Office Supplies Shop Demo</Title>
         <Text className={classes.description} size="xl" mt="xl">
           Build for demo purposes by Andrei Bautin
         </Text>

@@ -14,13 +14,9 @@ type Product struct {
 	Id int `json:"id"`
 	ImageName string `json:"imageName"`
 	ProductName string `json:"productName"`
-	CPU string `json:"cpu"`
-	GPU string `json:"gpu"`
-	Display string `json:"display"`
-	HDDSSD string `json:"hddssd"`
-	RAM string `json:"ram"`
 	Price float32 `json:"price"`
 	Discount float32 `json:"discount"`
+	Description string `json:"description"`
 }
 
 type OrderProduct struct {
@@ -63,24 +59,20 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
-	app.Get("/healthcheck", func(c *fiber.Ctx) error {
-		return c.SendString("OK")
-	})
-
 	app.Get("/api/products/", func(c *fiber.Ctx) error {
 		rows, err := db.Query("SELECT * FROM public.\"Product\"")
 		CheckError(err)
 
-		var products []*Product // declare a slice of courses that will hold all of the Course instances scanned from the rows object
-		for rows.Next() { // this stops when there are no more rows
-			c := new(Product) // initialize a new instance
-			err := rows.Scan(&c.Id, &c.ImageName, &c.ProductName, &c.CPU, &c.GPU, &c.Display, &c.HDDSSD, &c.RAM, &c.Price, &c.Discount) // scan contents of the current row into the instance
+		var products []*Product 
+		for rows.Next() {
+			c := new(Product)
+			err := rows.Scan(&c.Id, &c.ImageName, &c.ProductName, &c.Price, &c.Discount, &c.Description)
 			CheckError(err)
 		
-			products = append(products, c) // add each instance to the slice
+			products = append(products, c)
 		}
 		if err := rows.Err(); 
-		err != nil { // make sure that there was no issue during the process
+		err != nil {
 			CheckError(err)
 			return err
 		}

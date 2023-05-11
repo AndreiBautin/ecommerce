@@ -83,13 +83,9 @@ export function ProductCard({ product }: ProductCardProps) {
           id: product.id,
           imageName: product.imageName,
           productName: product.productName,
-          cpu: product.cpu,
-          gpu: product.gpu,
-          display: product.display,
-          hddssd: product.hddssd,
-          ram: product.ram,
           price: product.price,
           discount: product.discount,
+          description: product.description,
         },
         quantity: 1,
       })
@@ -111,21 +107,6 @@ export function ProductCard({ product }: ProductCardProps) {
   var priceWithDiscount = product.price * (1 - product.discount);
   var formattedPrice = formatter.format(priceWithDiscount);
 
-  const specDetails = [
-    { label: product.cpu, icon: IconCpu },
-    { label: product.gpu, icon: IconCpu2 },
-    { label: product.display, icon: IconScreenShare },
-    { label: product.hddssd, icon: IconBadgeHd },
-    { label: product.ram, icon: IconFrame },
-  ];
-
-  const specs = specDetails.map((specDetail) => (
-    <Center key={specDetail.label}>
-      <specDetail.icon size="1.05rem" className={classes.icon} stroke={1.5} />
-      <Text size="xs">{specDetail.label}</Text>
-    </Center>
-  ));
-
   var markup = (
     <Card mt={50} withBorder radius="md" className={classes.card}>
       <Card.Section className={classes.imageSection}>
@@ -143,11 +124,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <Card.Section className={classes.section} mt="md">
         <Text fz="sm" c="dimmed" className={classes.label}>
-          Specs
+          Description
         </Text>
 
         <Group spacing={8} mb={-8}>
-          {specs}
+          {product.description}
         </Group>
       </Card.Section>
 
