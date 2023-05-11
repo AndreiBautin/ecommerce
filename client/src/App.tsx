@@ -24,8 +24,6 @@ const fetcher = (url: string) =>
 function App() {
   const links = [
     { link: "/", label: "Home" },
-    { link: "/#shop", label: "Shop" },
-    { link: "/#about", label: "About" },
     { link: "/cart", label: "Cart" },
   ];
 
