@@ -14,12 +14,12 @@ import { IconGauge, IconUser, IconLock } from "@tabler/icons-react";
 const mockdata = [
   {
     title: "Extreme performance",
-    description: "Powered by a Golang backend",
+    description: "Powered by a Go Fiber backend",
     icon: IconGauge,
   },
   {
     title: "User friendly",
-    description: "Slick and responsive design",
+    description: "Utilizing mantine component library",
     icon: IconUser,
   },
   {
@@ -90,7 +90,7 @@ export function About() {
       >
         Backend: Go
         <br />
-        Frontend: React with Mantine Component Library
+        Frontend: React
         <br />
         Database: PostgreSQL
       </Text>
