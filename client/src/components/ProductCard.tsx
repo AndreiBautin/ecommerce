@@ -7,11 +7,13 @@ import {
   createStyles,
   Button,
   rem,
+  NumberInput,
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { add } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../app/hooks";
 import { Product } from "../features/cart/cartSlice";
+import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -67,6 +69,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const dispatch = useAppDispatch();
+  const [quantity, setQuantity] = useState<number | "">(1);
 
   function AddToCart() {
     dispatch(
@@ -79,7 +82,7 @@ export function ProductCard({ product }: ProductCardProps) {
           discount: product.discount,
           description: product.description,
         },
-        quantity: 1,
+        quantity: quantity != "" ? quantity : 1,
       })
     );
 
@@ -131,6 +134,12 @@ export function ProductCard({ product }: ProductCardProps) {
               {formattedPrice}
             </Text>
           </div>
+
+          <NumberInput
+            placeholder="Quantity"
+            value={quantity}
+            onChange={setQuantity}
+          />
 
           <Button radius="xl" style={{ flex: 1 }} onClick={AddToCart}>
             Add to cart
