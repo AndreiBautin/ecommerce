@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { IconGauge, IconUser, IconLock } from "@tabler/icons-react";
 
-const mockdata = [
+const data = [
   {
     title: "Extreme performance",
     description: "Powered by a Go Fiber backend",
@@ -49,6 +49,10 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[1]
     }`,
   },
+
+  button: {
+    cursor: "pointer",
+  },
 }));
 
 function seeMore() {
@@ -57,7 +61,7 @@ function seeMore() {
 
 export function About() {
   const { classes, theme } = useStyles();
-  const features = mockdata.map((feature) => (
+  const features = data.map((feature) => (
     <Card
       key={feature.title}
       shadow="md"
@@ -96,7 +100,13 @@ export function About() {
       </Text>
 
       <Group position="center">
-        <Badge variant="filled" size="lg" mt={5} onClick={() => seeMore()}>
+        <Badge
+          className={classes.button}
+          variant="filled"
+          size="lg"
+          mt={5}
+          onClick={() => seeMore()}
+        >
           See more
         </Badge>
       </Group>
