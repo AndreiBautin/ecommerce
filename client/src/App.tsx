@@ -1,12 +1,12 @@
 import useSWR from "swr";
 import "./assets/css/App.css";
-import { HeaderSimple } from "./components/HeaderSimple";
+import { HeaderNavbar } from "./components/HeaderNavbar";
 import { AppShell } from "@mantine/core";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
 import { Route, Routes } from "react-router-dom";
 import { Notifications } from "@mantine/notifications";
-import { FooterSimple } from "./components/FooterSimple";
+import { Footer } from "./components/Footer";
 import Checkout from "./components/Checkout";
 
 export interface Todo {
@@ -31,8 +31,8 @@ function App() {
     <div id="page-wrapper">
       <AppShell
         padding="md"
-        header={<HeaderSimple links={links} />}
-        footer={<FooterSimple links={links} />}
+        header={<HeaderNavbar links={links} />}
+        footer={<Footer links={links} />}
         styles={(theme) => ({
           main: {
             backgroundColor:

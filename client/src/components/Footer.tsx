@@ -32,11 +32,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface FooterSimpleProps {
+interface FooterProps {
   links: { link: string; label: string }[];
 }
 
-export function FooterSimple({ links }: FooterSimpleProps) {
+export function Footer({ links }: FooterProps) {
   const navigate = useNavigate();
 
   const { classes } = useStyles();
