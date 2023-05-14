@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { clear } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../app/hooks";
 import { update } from "../features/activeLink/activeLinkSlice";
+import { Notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -70,6 +71,10 @@ export function Checkout() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
+    });
+    Notifications.show({
+      title: "Success!",
+      message: "Order submitted",
     });
     dispatch(clear());
     dispatch(update("/"));
