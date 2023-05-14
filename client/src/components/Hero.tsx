@@ -7,7 +7,6 @@ import {
   Text,
   rem,
 } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -70,9 +69,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function HeroContentLeft() {
-  const navigate = useNavigate();
-
+export function Hero() {
   const { classes } = useStyles();
 
   function learnMore() {

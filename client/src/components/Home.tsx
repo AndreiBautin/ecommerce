@@ -1,4 +1,4 @@
-import { HeroContentLeft } from "./HeroContentLeft";
+import { Hero } from "./Hero";
 import { Grid } from "@mantine/core";
 import { About } from "./About";
 import { ProductCard } from "./ProductCard";
@@ -15,7 +15,7 @@ function Home({}) {
   return (
     <div>
       <section id="home">
-        <HeroContentLeft />
+        <Hero />
       </section>
       <section id="shop">
         <Grid px={100}>

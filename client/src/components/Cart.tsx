@@ -1,5 +1,4 @@
-import React from "react";
-import { ProductTable } from "./ProductTable";
+import { CartTable } from "./CartTable";
 import { Container } from "@mantine/core";
 import { Title } from "@mantine/core";
 import { Button } from "@mantine/core";
@@ -17,7 +16,7 @@ function Cart() {
       <Title order={2} ta="center" mt="sm" mb="lg">
         Cart
       </Title>
-      <ProductTable />
+      <CartTable />
       <Button mt={10} onClick={() => checkout()}>
         Next
       </Button>

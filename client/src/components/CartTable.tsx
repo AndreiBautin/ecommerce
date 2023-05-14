@@ -4,7 +4,7 @@ import { CartProduct } from "../features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { remove } from "../features/cart/cartSlice";
 
-export function ProductTable() {
+export function CartTable() {
   const cart = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 

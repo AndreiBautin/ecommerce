@@ -5,17 +5,9 @@ import {
   Group,
   Badge,
   createStyles,
-  Center,
   Button,
   rem,
 } from "@mantine/core";
-import {
-  IconFrame,
-  IconBadgeHd,
-  IconScreenShare,
-  IconCpu,
-  IconCpu2,
-} from "@tabler/icons-react";
 import { Notifications } from "@mantine/notifications";
 import { add } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../app/hooks";

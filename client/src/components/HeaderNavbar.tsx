@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   createStyles,
   Header,
@@ -10,6 +9,8 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import logo from "../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { update } from "../features/activeLink/activeLinkSlice";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -73,8 +74,9 @@ interface HeaderNavbarProps {
 }
 
 export function HeaderNavbar({ links }: HeaderNavbarProps) {
+  const dispatch = useAppDispatch();
   const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+  const activeLink = useAppSelector((state) => state.activeLink);
   const { classes, cx } = useStyles();
 
   const navigate = useNavigate();
@@ -84,11 +86,11 @@ export function HeaderNavbar({ links }: HeaderNavbarProps) {
       key={link.label}
       href={link.link}
       className={cx(classes.link, {
-        [classes.linkActive]: active === link.link,
+        [classes.linkActive]: activeLink.link === link.link,
       })}
       onClick={(event) => {
         event.preventDefault();
-        setActive(link.link);
+        dispatch(update(link.link));
         navigate(link.link);
       }}
     >

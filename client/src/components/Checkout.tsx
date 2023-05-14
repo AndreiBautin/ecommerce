@@ -12,6 +12,7 @@ import { useAppSelector } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { clear } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../app/hooks";
+import { update } from "../features/activeLink/activeLinkSlice";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -71,6 +72,7 @@ export function Checkout() {
       body: JSON.stringify(payload),
     });
     dispatch(clear());
+    dispatch(update("/"));
     navigate("/");
   }
 
