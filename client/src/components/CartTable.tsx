@@ -5,12 +5,12 @@ import {
   Text,
   ActionIcon,
   Container,
-  Title,
+  NumberInput,
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { CartProduct } from "../features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { remove } from "../features/cart/cartSlice";
+import { remove, updateQuantity } from "../features/cart/cartSlice";
 
 export function CartTable() {
   const cart = useAppSelector((state) => state.cart);
@@ -18,6 +18,15 @@ export function CartTable() {
 
   const removeItem = (productId: number) => {
     dispatch(remove(productId));
+  };
+
+  const updateItem = (productId: number, quantity: number | "") => {
+    dispatch(
+      updateQuantity({
+        productId: productId,
+        quantity: quantity != "" ? quantity : 1,
+      })
+    );
   };
 
   const formatter = new Intl.NumberFormat("en-US", {
@@ -53,7 +62,11 @@ export function CartTable() {
               </td>
               <td>
                 <Text fz="sm" c="dimmed" ta="left">
-                  {row.quantity}
+                  <NumberInput
+                    placeholder="Quantity"
+                    value={row.quantity}
+                    onChange={(e) => updateItem(row.product.id, e)}
+                  />
                 </Text>
               </td>
               <td>

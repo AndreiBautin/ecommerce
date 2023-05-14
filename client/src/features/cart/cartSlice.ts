@@ -18,6 +18,11 @@ export interface CartState {
   products: Array<CartProduct>;
 }
 
+export interface UpdateCartQuantity {
+  productId: number;
+  quantity: number;
+}
+
 const initialState: CartState = {
   products: [],
 };
@@ -42,11 +47,14 @@ export const cartSlice = createSlice({
     remove: (state, action: PayloadAction<number>) => {
       state.products.forEach(function (item, index, object) {
         if (item.product.id === action.payload) {
-          if (item.quantity === 1) {
-            object.splice(index, 1);
-          } else {
-            item.quantity--;
-          }
+          object.splice(index, 1);
+        }
+      });
+    },
+    updateQuantity: (state, action: PayloadAction<UpdateCartQuantity>) => {
+      state.products.forEach(function (item) {
+        if (item.product.id === action.payload.productId) {
+          item.quantity = action.payload.quantity;
         }
       });
     },
@@ -56,6 +64,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { add, remove, clear } = cartSlice.actions;
+export const { add, remove, clear, updateQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;
