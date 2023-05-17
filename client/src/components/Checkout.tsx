@@ -6,6 +6,7 @@ import {
   Button,
   createStyles,
   rem,
+  Select,
 } from "@mantine/core";
 import { useState } from "react";
 import { useAppSelector } from "../app/hooks";
@@ -14,6 +15,7 @@ import { clear } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../app/hooks";
 import { update } from "../features/activeLink/activeLinkSlice";
 import { Notifications } from "@mantine/notifications";
+import { useForm, isNotEmpty, isEmail } from "@mantine/form";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -36,6 +38,34 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Checkout() {
+  const form = useForm({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      state: "",
+      zip: "",
+      phone: "",
+      email: "",
+    },
+
+    validate: {
+      firstName: isNotEmpty("Invalid first name"),
+      lastName: isNotEmpty("Invalid last name"),
+      address: isNotEmpty("Invalid address"),
+      city: isNotEmpty("Invalid city"),
+      state: isNotEmpty("Invalid state"),
+      zip: (value) =>
+        /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(value) ? null : "Invalid phone number",
+      phone: (value) =>
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(value)
+          ? null
+          : "Invalid phone number",
+      email: isEmail("Invalid email"),
+    },
+  });
+
   const dispatch = useAppDispatch();
 
   const [firstName, setFirstName] = useState("");
@@ -86,57 +116,111 @@ export function Checkout() {
       <Title order={2} ta="center" mt="sm">
         Checkout
       </Title>
-      <TextInput
-        placeholder="First name"
-        mt="sm"
-        onChange={(event) => setFirstName(event.target.value)}
-        classNames={classes}
-      />
-      <TextInput
-        placeholder="Last name"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setLastName(event.target.value)}
-      />
-      <TextInput
-        placeholder="Address"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setAddress(event.target.value)}
-      />
-      <TextInput
-        placeholder="City"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setCity(event.target.value)}
-      />
-      <TextInput
-        placeholder="State"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setState(event.target.value)}
-      />
-      <TextInput
-        placeholder="Zip"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setZip(event.target.value)}
-      />
-      <TextInput
-        placeholder="Phone"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setPhone(event.target.value)}
-      />
-      <TextInput
-        placeholder="Email"
-        mt="sm"
-        classNames={classes}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <Button mt={10} onClick={() => submit()}>
-        Submit
-      </Button>
+      <form onSubmit={form.onSubmit(submit)}>
+        <TextInput
+          placeholder="First name"
+          mt="sm"
+          {...form.getInputProps("firstName")}
+          classNames={classes}
+        />
+        <TextInput
+          placeholder="Last name"
+          mt="sm"
+          classNames={classes}
+          {...form.getInputProps("lastName")}
+        />
+        <TextInput
+          placeholder="Address"
+          mt="sm"
+          classNames={classes}
+          {...form.getInputProps("address")}
+        />
+        <TextInput
+          placeholder="City"
+          mt="sm"
+          classNames={classes}
+          {...form.getInputProps("city")}
+        />
+        <Select
+          placeholder="State"
+          mt="sm"
+          classNames={classes}
+          data={[
+            { value: "Alabama", label: "Alabama" },
+            { value: "Alaska", label: "Alaska" },
+            { value: "Arizona", label: "Arizona" },
+            { value: "Arkansas", label: "Arkansas" },
+            { value: "California", label: "California" },
+            { value: "Colorado", label: "Colorado" },
+            { value: "Connecticut", label: "Connecticut" },
+            { value: "Delaware", label: "Delaware" },
+            { value: "Florida", label: "Florida" },
+            { value: "Georgia", label: "Georgia" },
+            { value: "Hawaii", label: "Hawaii" },
+            { value: "Idaho", label: "Idaho" },
+            { value: "Illinois", label: "Illinois" },
+            { value: "Indiana", label: "Indiana" },
+            { value: "Iowa", label: "Iowa" },
+            { value: "Kansas", label: "Kansas" },
+            { value: "Kentucky", label: "Kentucky" },
+            { value: "Louisiana", label: "Louisiana" },
+            { value: "Maine", label: "Maine" },
+            { value: "Maryland", label: "Maryland" },
+            { value: "Massachusetts", label: "Massachusetts" },
+            { value: "Michigan", label: "Michigan" },
+            { value: "Minnesota", label: "Minnesota" },
+            { value: "Mississippi", label: "Mississippi" },
+            { value: "Missouri", label: "Missouri" },
+            { value: "Montana", label: "Montana" },
+            { value: "Nebraska", label: "Nebraska" },
+            { value: "Nevada", label: "Nevada" },
+            { value: "New Hampshire", label: "New Hampshire" },
+            { value: "New Jersey", label: "New Jersey" },
+            { value: "New Mexico", label: "New Mexico" },
+            { value: "New York", label: "New York" },
+            { value: "North Carolina", label: "North Carolina" },
+            { value: "North Dakota", label: "North Dakota" },
+            { value: "Ohio", label: "Ohio" },
+            { value: "Oklahoma", label: "Oklahoma" },
+            { value: "Oregon", label: "Oregon" },
+            { value: "Pennsylvania", label: "Pennsylvania" },
+            { value: "Rhode Island", label: "Rhode Island" },
+            { value: "South Carolina", label: "South Carolina" },
+            { value: "South Dakota", label: "South Dakota" },
+            { value: "Tennessee", label: "Tennessee" },
+            { value: "Texas", label: "Texas" },
+            { value: "Utah", label: "Utah" },
+            { value: "Vermont", label: "Vermont" },
+            { value: "Virginia", label: "Virginia" },
+            { value: "Washington", label: "Washington" },
+            { value: "West Virginia", label: "West Virginia" },
+            { value: "Wisconsin", label: "Wisconsin" },
+            { value: "Wyoming", label: "Wyoming" },
+          ]}
+          {...form.getInputProps("state")}
+        />
+        <TextInput
+          placeholder="Zip"
+          mt="sm"
+          classNames={classes}
+          {...form.getInputProps("zip")}
+        />
+        <TextInput
+          placeholder="Phone"
+          mt="sm"
+          classNames={classes}
+          {...form.getInputProps("phone")}
+        />
+        <TextInput
+          placeholder="Email"
+          mt="sm"
+          classNames={classes}
+          {...form.getInputProps("email")}
+        />
+        <Button mt={10} type="submit">
+          Submit
+        </Button>
+      </form>
     </Container>
   );
 }
