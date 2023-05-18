@@ -18,7 +18,7 @@ function Home({}) {
         <Hero />
       </section>
       <section id="shop">
-        <Grid px={100}>
+        <Grid px={{ base: 10, sm: 25, md: 100, lg: 200 }}>
           {data?.map(function (product) {
             return (
               <Grid.Col md={4} lg={3}>
