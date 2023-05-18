@@ -24,18 +24,6 @@ const useStyles = createStyles((theme) => ({
     height: "95%",
   },
 
-  links: {
-    [theme.fn.smallerThan("xs")]: {
-      display: "none",
-    },
-  },
-
-  burger: {
-    [theme.fn.largerThan("xs")]: {
-      display: "none",
-    },
-  },
-
   link: {
     display: "block",
     lineHeight: 1,
@@ -105,13 +93,6 @@ export function HeaderNavbar({ links }: HeaderNavbarProps) {
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
-
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          className={classes.burger}
-          size="sm"
-        />
       </Container>
     </Header>
   );

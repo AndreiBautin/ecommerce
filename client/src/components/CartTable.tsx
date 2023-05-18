@@ -36,7 +36,7 @@ export function CartTable() {
 
   if (cart.products.length > 0) {
     return (
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+      <Table verticalSpacing="sm">
         <thead>
           <tr>
             <th>Picture</th>
