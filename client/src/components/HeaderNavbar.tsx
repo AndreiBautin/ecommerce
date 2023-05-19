@@ -24,6 +24,12 @@ const useStyles = createStyles((theme) => ({
     height: "95%",
   },
 
+  burger: {
+    [theme.fn.largerThan("xs")]: {
+      display: "none",
+    },
+  },
+
   link: {
     display: "block",
     lineHeight: 1,
@@ -90,9 +96,7 @@ export function HeaderNavbar({ links }: HeaderNavbarProps) {
     <Header height={60} mb={120}>
       <Container className={classes.header}>
         <img className={classes.logo} src={logo} />
-        <Group spacing={5} className={classes.links}>
-          {items}
-        </Group>
+        <Group spacing={5}>{items}</Group>
       </Container>
     </Header>
   );
