@@ -1,12 +1,13 @@
 import { ENDPOINT } from "../App";
 import {
   Container,
-  Title,
   TextInput,
   Button,
   createStyles,
   rem,
   Select,
+  Stepper,
+  Group,
 } from "@mantine/core";
 import { useState } from "react";
 import { useAppSelector } from "../app/hooks";
@@ -38,6 +39,12 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Checkout() {
+  const [active, setActive] = useState(0);
+  const nextStep = () =>
+    setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () =>
+    setActive((current) => (current > 0 ? current - 1 : current));
+
   const form = useForm({
     initialValues: {
       firstName: "",
@@ -113,114 +120,136 @@ export function Checkout() {
 
   return (
     <Container px="lg">
-      <Title order={2} ta="center" mt="sm">
-        Checkout
-      </Title>
-      <form onSubmit={form.onSubmit(submit)}>
-        <TextInput
-          placeholder="First name"
-          mt="sm"
-          {...form.getInputProps("firstName")}
-          classNames={classes}
-        />
-        <TextInput
-          placeholder="Last name"
-          mt="sm"
-          classNames={classes}
-          {...form.getInputProps("lastName")}
-        />
-        <TextInput
-          placeholder="Address"
-          mt="sm"
-          classNames={classes}
-          {...form.getInputProps("address")}
-        />
-        <TextInput
-          placeholder="City"
-          mt="sm"
-          classNames={classes}
-          {...form.getInputProps("city")}
-        />
-        <Select
-          placeholder="State"
-          mt="sm"
-          classNames={classes}
-          data={[
-            { value: "Alabama", label: "Alabama" },
-            { value: "Alaska", label: "Alaska" },
-            { value: "Arizona", label: "Arizona" },
-            { value: "Arkansas", label: "Arkansas" },
-            { value: "California", label: "California" },
-            { value: "Colorado", label: "Colorado" },
-            { value: "Connecticut", label: "Connecticut" },
-            { value: "Delaware", label: "Delaware" },
-            { value: "Florida", label: "Florida" },
-            { value: "Georgia", label: "Georgia" },
-            { value: "Hawaii", label: "Hawaii" },
-            { value: "Idaho", label: "Idaho" },
-            { value: "Illinois", label: "Illinois" },
-            { value: "Indiana", label: "Indiana" },
-            { value: "Iowa", label: "Iowa" },
-            { value: "Kansas", label: "Kansas" },
-            { value: "Kentucky", label: "Kentucky" },
-            { value: "Louisiana", label: "Louisiana" },
-            { value: "Maine", label: "Maine" },
-            { value: "Maryland", label: "Maryland" },
-            { value: "Massachusetts", label: "Massachusetts" },
-            { value: "Michigan", label: "Michigan" },
-            { value: "Minnesota", label: "Minnesota" },
-            { value: "Mississippi", label: "Mississippi" },
-            { value: "Missouri", label: "Missouri" },
-            { value: "Montana", label: "Montana" },
-            { value: "Nebraska", label: "Nebraska" },
-            { value: "Nevada", label: "Nevada" },
-            { value: "New Hampshire", label: "New Hampshire" },
-            { value: "New Jersey", label: "New Jersey" },
-            { value: "New Mexico", label: "New Mexico" },
-            { value: "New York", label: "New York" },
-            { value: "North Carolina", label: "North Carolina" },
-            { value: "North Dakota", label: "North Dakota" },
-            { value: "Ohio", label: "Ohio" },
-            { value: "Oklahoma", label: "Oklahoma" },
-            { value: "Oregon", label: "Oregon" },
-            { value: "Pennsylvania", label: "Pennsylvania" },
-            { value: "Rhode Island", label: "Rhode Island" },
-            { value: "South Carolina", label: "South Carolina" },
-            { value: "South Dakota", label: "South Dakota" },
-            { value: "Tennessee", label: "Tennessee" },
-            { value: "Texas", label: "Texas" },
-            { value: "Utah", label: "Utah" },
-            { value: "Vermont", label: "Vermont" },
-            { value: "Virginia", label: "Virginia" },
-            { value: "Washington", label: "Washington" },
-            { value: "West Virginia", label: "West Virginia" },
-            { value: "Wisconsin", label: "Wisconsin" },
-            { value: "Wyoming", label: "Wyoming" },
-          ]}
-          {...form.getInputProps("state")}
-        />
-        <TextInput
-          placeholder="Zip"
-          mt="sm"
-          classNames={classes}
-          {...form.getInputProps("zip")}
-        />
-        <TextInput
-          placeholder="Phone"
-          mt="sm"
-          classNames={classes}
-          {...form.getInputProps("phone")}
-        />
-        <TextInput
-          placeholder="Email"
-          mt="sm"
-          classNames={classes}
-          {...form.getInputProps("email")}
-        />
-        <Button mt={10} type="submit">
-          Submit
+      <Stepper
+        active={active}
+        onStepClick={setActive}
+        breakpoint="sm"
+        mt="xl"
+        mb="xl"
+      >
+        <Stepper.Step label="First step" description="Shipping info">
+          <form onSubmit={form.onSubmit(submit)}>
+            <TextInput
+              placeholder="First name"
+              mt="sm"
+              {...form.getInputProps("firstName")}
+              classNames={classes}
+            />
+            <TextInput
+              placeholder="Last name"
+              mt="sm"
+              classNames={classes}
+              {...form.getInputProps("lastName")}
+            />
+            <TextInput
+              placeholder="Address"
+              mt="sm"
+              classNames={classes}
+              {...form.getInputProps("address")}
+            />
+            <TextInput
+              placeholder="City"
+              mt="sm"
+              classNames={classes}
+              {...form.getInputProps("city")}
+            />
+            <Select
+              placeholder="State"
+              mt="sm"
+              classNames={classes}
+              data={[
+                { value: "Alabama", label: "Alabama" },
+                { value: "Alaska", label: "Alaska" },
+                { value: "Arizona", label: "Arizona" },
+                { value: "Arkansas", label: "Arkansas" },
+                { value: "California", label: "California" },
+                { value: "Colorado", label: "Colorado" },
+                { value: "Connecticut", label: "Connecticut" },
+                { value: "Delaware", label: "Delaware" },
+                { value: "Florida", label: "Florida" },
+                { value: "Georgia", label: "Georgia" },
+                { value: "Hawaii", label: "Hawaii" },
+                { value: "Idaho", label: "Idaho" },
+                { value: "Illinois", label: "Illinois" },
+                { value: "Indiana", label: "Indiana" },
+                { value: "Iowa", label: "Iowa" },
+                { value: "Kansas", label: "Kansas" },
+                { value: "Kentucky", label: "Kentucky" },
+                { value: "Louisiana", label: "Louisiana" },
+                { value: "Maine", label: "Maine" },
+                { value: "Maryland", label: "Maryland" },
+                { value: "Massachusetts", label: "Massachusetts" },
+                { value: "Michigan", label: "Michigan" },
+                { value: "Minnesota", label: "Minnesota" },
+                { value: "Mississippi", label: "Mississippi" },
+                { value: "Missouri", label: "Missouri" },
+                { value: "Montana", label: "Montana" },
+                { value: "Nebraska", label: "Nebraska" },
+                { value: "Nevada", label: "Nevada" },
+                { value: "New Hampshire", label: "New Hampshire" },
+                { value: "New Jersey", label: "New Jersey" },
+                { value: "New Mexico", label: "New Mexico" },
+                { value: "New York", label: "New York" },
+                { value: "North Carolina", label: "North Carolina" },
+                { value: "North Dakota", label: "North Dakota" },
+                { value: "Ohio", label: "Ohio" },
+                { value: "Oklahoma", label: "Oklahoma" },
+                { value: "Oregon", label: "Oregon" },
+                { value: "Pennsylvania", label: "Pennsylvania" },
+                { value: "Rhode Island", label: "Rhode Island" },
+                { value: "South Carolina", label: "South Carolina" },
+                { value: "South Dakota", label: "South Dakota" },
+                { value: "Tennessee", label: "Tennessee" },
+                { value: "Texas", label: "Texas" },
+                { value: "Utah", label: "Utah" },
+                { value: "Vermont", label: "Vermont" },
+                { value: "Virginia", label: "Virginia" },
+                { value: "Washington", label: "Washington" },
+                { value: "West Virginia", label: "West Virginia" },
+                { value: "Wisconsin", label: "Wisconsin" },
+                { value: "Wyoming", label: "Wyoming" },
+              ]}
+              {...form.getInputProps("state")}
+            />
+            <TextInput
+              placeholder="Zip"
+              mt="sm"
+              classNames={classes}
+              {...form.getInputProps("zip")}
+            />
+            <TextInput
+              placeholder="Phone"
+              mt="sm"
+              classNames={classes}
+              {...form.getInputProps("phone")}
+            />
+            <TextInput
+              placeholder="Email"
+              mt="sm"
+              classNames={classes}
+              {...form.getInputProps("email")}
+            />
+            <Button mt={10} type="submit" display={"none"}>
+              Submit
+            </Button>
+          </form>
+        </Stepper.Step>
+        <Stepper.Step label="Second step" description="Payment info">
+          Step 2 content: Verify email
+        </Stepper.Step>
+        <Stepper.Step label="Final step" description="Review order">
+          Step 3 content: Get full access
+        </Stepper.Step>
+        <Stepper.Completed>
+          Completed, click back button to get to previous step
+        </Stepper.Completed>
+      </Stepper>
+      <Group position="center" mt="xl">
+        <Button variant="default" onClick={prevStep}>
+          Back
         </Button>
-      </form>
+        <Button onClick={nextStep}>Next step</Button>
+      </Group>
     </Container>
   );
 }
