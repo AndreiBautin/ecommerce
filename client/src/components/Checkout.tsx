@@ -75,15 +75,6 @@ export function Checkout() {
 
   const dispatch = useAppDispatch();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-
   const cart = useAppSelector((state) => state.cart);
 
   const navigate = useNavigate();
@@ -92,14 +83,14 @@ export function Checkout() {
 
   async function submit() {
     var payload = {
-      firstName: firstName,
-      lastName: lastName,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip,
-      phone: phone,
-      email: email,
+      firstName: form.values.firstName,
+      lastName: form.values.lastName,
+      address: form.values.address,
+      city: form.values.city,
+      state: form.values.state,
+      zip: form.values.zip,
+      phone: form.values.phone,
+      email: form.values.email,
       cart: cart.products,
     };
     await fetch(`${ENDPOINT}/api/orders`, {
@@ -128,7 +119,7 @@ export function Checkout() {
         mb="xl"
       >
         <Stepper.Step label="First step" description="Shipping info">
-          <form onSubmit={form.onSubmit(submit)}>
+          <form onSubmit={form.onSubmit(nextStep)}>
             <TextInput
               placeholder="First name"
               mt="sm"
@@ -229,8 +220,8 @@ export function Checkout() {
               classNames={classes}
               {...form.getInputProps("email")}
             />
-            <Button mt={10} type="submit" display={"none"}>
-              Submit
+            <Button mt={10} type="submit">
+              Next
             </Button>
           </form>
         </Stepper.Step>
@@ -244,12 +235,6 @@ export function Checkout() {
           Completed, click back button to get to previous step
         </Stepper.Completed>
       </Stepper>
-      <Group position="center" mt="xl">
-        <Button variant="default" onClick={prevStep}>
-          Back
-        </Button>
-        <Button onClick={nextStep}>Next step</Button>
-      </Group>
     </Container>
   );
 }
