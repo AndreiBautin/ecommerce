@@ -8,6 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	_ "github.com/lib/pq"
+	"github.com/stripe/stripe-go/v74"
+	"github.com/stripe/stripe-go/v74/paymentintent"
 )
 
 type Product struct {
@@ -38,7 +40,7 @@ type Order struct {
 }
 
 func main() {
-	fmt.Print("Hello world")
+	stripe.Key = "sk_test_51N4ti8C4fJn5tMJY6kv5B5K4GlQRWjjpVKTXNPb2hkg0pQoYQKJM58ZWrnqPzqVpRP8lKbSq2DQlq1DSwv7C6Ubp00mOWWt6GL"
 
 	psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", "localhost", 5432, "postgres", "postgres", "ecommerce")
 
@@ -103,6 +105,25 @@ func main() {
 		}
 
 		return c.JSON("success")
+	})
+
+	app.Post("/api/createPaymentIntent", func(c *fiber.Ctx) error {	  
+		params := &stripe.PaymentIntentParams{
+		  Amount:   stripe.Int64(140),
+		  Currency: stripe.String(string(stripe.CurrencyUSD)),
+		}
+	  
+		pi, err := paymentintent.New(params)
+		if err != nil {
+			log.Fatal(err)
+			return err
+		}
+
+		return c.JSON(struct {
+			ClientSecret string `json:"clientSecret"`
+		  }{
+			ClientSecret: pi.ClientSecret,
+		  })
 	})
 
 	log.Fatal(app.Listen(":4000"))
