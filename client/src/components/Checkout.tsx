@@ -41,8 +41,6 @@ const useStyles = createStyles((theme) => ({
 export function Checkout() {
   const stripe = useStripe();
 
-  const [message, setMessage] = useState("");
-
   useEffect(() => {
     if (!stripe) {
       return;
@@ -55,25 +53,6 @@ export function Checkout() {
     if (!clientSecret) {
       return;
     }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      if (paymentIntent) {
-        switch (paymentIntent.status) {
-          case "succeeded":
-            setMessage("Payment succeeded!");
-            break;
-          case "processing":
-            setMessage("Your payment is processing.");
-            break;
-          case "requires_payment_method":
-            setMessage("Your payment was not successful, please try again.");
-            break;
-          default:
-            setMessage("Something went wrong.");
-            break;
-        }
-      }
-    });
   }, [stripe]);
 
   const [active, setActive] = useState(0);
@@ -264,6 +243,12 @@ export function Checkout() {
         </Stepper.Step>
         <Stepper.Step label="Second step" description="Payment info">
           <PaymentElement id="payment-element" />
+          <Button mt={10} mr={10} onClick={prevStep}>
+            Back
+          </Button>
+          <Button mt={10} onClick={nextStep}>
+            Next
+          </Button>
         </Stepper.Step>
         <Stepper.Step label="Final step" description="Review order">
           Step 3 content: Get full access
