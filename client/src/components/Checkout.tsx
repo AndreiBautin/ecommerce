@@ -40,6 +40,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Checkout() {
+  const [confirmationNumber, setConfirmationNumber] = useState("");
+
   const stripe = useStripe();
 
   useEffect(() => {
@@ -122,8 +124,8 @@ export function Checkout() {
       message: "Order submitted",
     });
     dispatch(clear());
-    dispatch(update("/"));
-    navigate("/");
+    setConfirmationNumber("A1234B5678");
+    nextStep();
   }
 
   return (
@@ -267,12 +269,15 @@ export function Checkout() {
           <Button mt={10} mr={10} onClick={prevStep}>
             Back
           </Button>
-          <Button mt={10} onClick={nextStep}>
+          <Button mt={10} onClick={submit}>
             Submit
           </Button>
         </Stepper.Step>
         <Stepper.Completed>
-          Completed, click back button to get to previous step
+          <p>
+            Order complete! Your confirmation number is {confirmationNumber}. An
+            email receipt has been send to {form.values.email}
+          </p>
         </Stepper.Completed>
       </Stepper>
     </Container>
