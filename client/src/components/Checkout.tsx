@@ -17,6 +17,7 @@ import { update } from "../features/activeLink/activeLinkSlice";
 import { Notifications } from "@mantine/notifications";
 import { useForm, isNotEmpty, isEmail } from "@mantine/form";
 import { PaymentElement, useStripe } from "@stripe/react-stripe-js";
+import { CartTable } from "./CartTable";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -251,7 +252,24 @@ export function Checkout() {
           </Button>
         </Stepper.Step>
         <Stepper.Step label="Final step" description="Review order">
-          Step 3 content: Get full access
+          <h3>
+            Please review details carefully and hit "Submit" to confirm order.
+          </h3>
+          <p>First Name: {form.values.firstName}</p>
+          <p>Last Name: {form.values.lastName}</p>
+          <p>Address: {form.values.address}</p>
+          <p>City: {form.values.city}</p>
+          <p>State: {form.values.state}</p>
+          <p>Zip: {form.values.zip}</p>
+          <p>Phone: {form.values.phone}</p>
+          <p>Email: {form.values.email}</p>
+          <CartTable />
+          <Button mt={10} mr={10} onClick={prevStep}>
+            Back
+          </Button>
+          <Button mt={10} onClick={nextStep}>
+            Submit
+          </Button>
         </Stepper.Step>
         <Stepper.Completed>
           Completed, click back button to get to previous step
