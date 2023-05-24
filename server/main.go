@@ -104,7 +104,7 @@ func main() {
 			print(index)
 		}
 
-		return c.JSON("success")
+		return c.JSON(lastInsertId)
 	})
 
 	app.Post("/api/createPaymentIntent", func(c *fiber.Ctx) error {	  

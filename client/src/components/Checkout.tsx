@@ -118,13 +118,14 @@ export function Checkout() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => setConfirmationNumber(data));
     Notifications.show({
       title: "Success!",
       message: "Order submitted",
     });
     dispatch(clear());
-    setConfirmationNumber("A1234B5678");
     nextStep();
   }
 
