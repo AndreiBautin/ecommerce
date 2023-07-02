@@ -2,16 +2,27 @@ import { Hero } from "./Hero";
 import { Grid } from "@mantine/core";
 import { About } from "./About";
 import { ProductCard } from "./ProductCard";
-import useSWR from "swr";
 export const ENDPOINT = "http://localhost:4000";
 import { Product } from "../features/cart/cartSlice";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+const firebaseConfig = {
+  apiKey: "AIzaSyBVA74vzdWYfeSB1RWdRPpCWJOszTKHeDY",
+  authDomain: "office-supplies-shop-demo.firebaseapp.com",
+  projectId: "office-supplies-shop-demo",
+  storageBucket: "office-supplies-shop-demo.appspot.com",
+  messagingSenderId: "972839211807",
+  appId: "1:972839211807:web:879530de5249454d5d562a",
+  measurementId: "G-4HDF097ND5",
+};
 
-const fetcher = (url: string) =>
-  fetch(`${ENDPOINT}/${url}`).then((r) => r.json());
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const productsCol = collection(db, "product");
+const productsSnapshot = await getDocs(productsCol);
+const products = productsSnapshot.docs.map((doc) => doc.data() as Product);
 
 function Home({}) {
-  const { data } = useSWR<Product[]>("api/products", fetcher);
-
   return (
     <div>
       <section id="home">
@@ -19,7 +30,7 @@ function Home({}) {
       </section>
       <section id="shop">
         <Grid px={{ base: 10, sm: 25, md: 100, lg: 200 }}>
-          {data?.map(function (product) {
+          {products?.map(function (product) {
             return (
               <Grid.Col md={4} lg={3}>
                 <ProductCard product={product} />

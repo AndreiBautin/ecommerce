@@ -18,6 +18,8 @@ import { Notifications } from "@mantine/notifications";
 import { useForm, isNotEmpty, isEmail } from "@mantine/form";
 import { PaymentElement, useStripe } from "@stripe/react-stripe-js";
 import { CartTable } from "./CartTable";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -101,6 +103,19 @@ export function Checkout() {
   const { classes } = useStyles();
 
   async function submit() {
+    const firebaseConfig = {
+      apiKey: "AIzaSyBVA74vzdWYfeSB1RWdRPpCWJOszTKHeDY",
+      authDomain: "office-supplies-shop-demo.firebaseapp.com",
+      projectId: "office-supplies-shop-demo",
+      storageBucket: "office-supplies-shop-demo.appspot.com",
+      messagingSenderId: "972839211807",
+      appId: "1:972839211807:web:879530de5249454d5d562a",
+      measurementId: "G-4HDF097ND5",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     var payload = {
       firstName: form.values.firstName,
       lastName: form.values.lastName,
@@ -112,15 +127,7 @@ export function Checkout() {
       email: form.values.email,
       cart: cart.products,
     };
-    await fetch(`${ENDPOINT}/api/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((res) => res.json())
-      .then((data) => setConfirmationNumber(data));
+    await addDoc(collection(db, "order"), { payload });
     Notifications.show({
       title: "Success!",
       message: "Order submitted",
